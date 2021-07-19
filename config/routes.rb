@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
-  devise_for :customers
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  root to: 'public/homes#top'
+  get "/about" => "public/homes#about" , as: "about"
+  devise_for :customers, :controllers => {
+    :registrations => 'public/registrations',
+    :sessions => 'public/sessions',
+    :passwords => 'public/passwords'
+  }
 end
