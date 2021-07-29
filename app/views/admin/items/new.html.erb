@@ -1,0 +1,14 @@
+<h4>商品新規登録</h4>
+<%= form_with model:@item, url: admin_items_path, local:true do |f| %>
+  <p>商品画像</p>
+  <%= f.attachment_field :image %>
+  <p>商品名</p>
+  <%= f.text_field :name %>
+  <p>商品説明</p>
+  <%= f.text_area :introduction %>
+  <p>ジャンル</p>
+  <%= f.collection_select :genre_id, @genre.all, :id, :name, include_blank: "選択して下さい" %>
+  <p>税抜き価格</p>
+  <%= f.text_field :price %>円
+  <%= f.submit '新規登録' %>
+<% end %>

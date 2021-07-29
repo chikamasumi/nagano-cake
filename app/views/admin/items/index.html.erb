@@ -1,0 +1,25 @@
+<div class="col-md-8 offset-md-1">
+  <h4>商品新規登録</h4>
+  <table>
+    <thead>
+      <th width="80" heigth="24">商品ID</th>
+      <th width="300" heigth="24">商品名</th>
+      <th width="200" heigth="24">税抜価格</th>
+      <th width="300" heigth="24">ジャンル</th>
+    </thead>
+    <tbody>
+      <% @items.each do |item| %>
+      <tr>
+        <td><%= item.id %></td>
+        <td>
+          <%= link_to admin_item_path(item.id) do %>
+            <%= item.name %>
+          <% end %>
+        </td>
+        <td><%= item.price %></td>
+        <td><%= item.genre.name %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
