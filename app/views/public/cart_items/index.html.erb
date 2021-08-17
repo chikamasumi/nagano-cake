@@ -1,0 +1,24 @@
+<div class="col-md-8 offset-md-1">
+  <h4>ショッピングカート</h4>
+  <table>
+    <thead>
+      <th width="80" heigth="24">商品名</th>
+      <th width="300" heigth="24">単価（税込)</th>
+      <th width="200" heigth="24">数量</th>
+      <th width="300" heigth="24">小計</th>
+      <th width="300" heigth="24"></th>
+    </thead>
+    <tbody>
+      <% @cart_items.each do |item| %>
+      <tr>
+        <td><%= item.name %></td>
+        <td><%= item.price %></td>
+        <td><%= cart_item.price %></td>
+        <td></td>
+        <td><%= link_to '削除する', class:'btn btn-sm btn-danger', method: :delete, "data-confirm" => "Are you sure?" %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= link_to '情報入力に進む', orders_path, class:'btn btn-sm btn-success' %>
+</div>
