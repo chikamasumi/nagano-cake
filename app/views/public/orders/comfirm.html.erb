@@ -1,0 +1,19 @@
+<h4>注文確認画面</h4>
+<table>
+    <thead>
+      <th width="80" heigth="24">商品名</th>
+      <th width="300" heigth="24">単価（税込）</th>
+      <th width="200" heigth="24">数量</th>
+      <th width="300" heigth="24">小計</th>
+    </thead>
+    <tbody>
+      <% @order_ditails.each do |order_ditail| %>
+      <tr>
+        <td><%= order_ditail.item.name %></td>
+        <td><%= order_ditail.item.price %></td>
+        <td><%= order_ditail.item.amount %></td>
+        <td></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>

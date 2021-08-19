@@ -8,13 +8,17 @@ Rails.application.routes.draw do
     resources :cart_items, only: [:index, :update, :destroy, :create]
     resources :orders, only: [:new, :index, :show, :create, :comfirm, :compleate]
     resources :addresses, only: [:index, :edit, :create, :update, :destroy]
-  end
 
-  devise_for :customers, :controllers => {
+
+    devise_for :customers, :controllers => {
     :registrations => 'public/registrations',
     :sessions => 'public/sessions',
     :passwords => 'public/passwords'
   }
+    resources :customers, only: [:show, :edit]
+  end
+
+
 
   namespace :admin do
     root to: 'homes#top'
