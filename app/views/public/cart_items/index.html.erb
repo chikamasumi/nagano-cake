@@ -1,5 +1,6 @@
 <div class="col-md-8 offset-md-1">
   <h4>ショッピングカート</h4>
+  <%= button_to "全て削除", destroy_all_cart_items_path, class:'btn btn-sm btn-danger', method: :delete %>
   <table>
     <thead>
       <th width="300" heigth="24">商品名</th>
@@ -12,13 +13,15 @@
       <% @cart_items.each do |cart_item| %>
       <tr>
         <td><%= cart_item.item.name %></td>
-        <td><%= cart_item.item.price %></td>
+        <td><%= cart_item.item.with_tax_price %></td>
         <td><%= cart_item.amount %></td>
-        <td></td>
-        <td><%= link_to '削除する', class:'btn btn-sm btn-danger', method: :delete, "data-confirm" => "Are you sure?" %></td>
+        <td><%= cart_item.subtotal %></td>
+        <td><%= link_to '削除する', cart_item_path(cart_item.id), class:'btn btn-sm btn-danger', method: :delete, "data-confirm" => "Are you sure?" %></td>
       </tr>
       <% end %>
+
     </tbody>
   </table>
-  <%= link_to '情報入力に進む', new_order_path, class:'btn btn-sm btn-success' %>
+  <%= link_to '買い物を続ける', items_path, class:'btn btn-primary' %>
+  <%= link_to '情報入力に進む', new_order_path, class:'btn btn-success' %>
 </div>

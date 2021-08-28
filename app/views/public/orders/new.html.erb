@@ -1,5 +1,5 @@
 <h1>注文情報入力</h1>
-<%= form_with model:@order, url: orders_path, local:true do |f| %>
+<%= form_with model:@order, url: confirm_orders_path, local:true do |f| %>
   <% if @order.errors.any? %>
     <div id="error_explanation">
       <h2>エラーが<%= @order.errors.count %>件あります。お客様情報を入力して下さい。</h2>
@@ -10,6 +10,7 @@
       </ul>
     </div>
   <% end %>
+
   <h4>支払い方法</h4>
     <div class="field">
       <%= f.radio_button :payment_method, '1' %>
@@ -24,10 +25,13 @@
     <div class="field">
        <%= f.radio_button :address, '2' %>
        <%= f.label :address, 'ご自身の住所', value: 2 %>
+       <p>〒<%= @customer.postal_code %><%= @customer.address %></p>
+       <p><%= @customer.last_name %><%= @customer.first_name %></p>
     </div>
     <div class="field">
       <%= f.radio_button :address, '1' %>
       <%= f.label :address, '登録済み住所から選択', value: 1 %>
+      <%= f.collection_select :address_id, @address.all, :id, :address, include_blank: "選択して下さい" %>
     </div>
     <div class="field">
       <%= f.radio_button :address, '0' %>
@@ -41,6 +45,6 @@
     </div>
 
     <div class="actions">
-      <%= f.submit '確認画面に進む' %>
+      <%= f.submit '確認画面に進む', class:'btn btn-primary' %>
     </div>
 <% end %>
