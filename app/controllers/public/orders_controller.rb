@@ -7,24 +7,32 @@ class Public::OrdersController < ApplicationController
   end
 
   def create
-    order = Order.new(order_params)
-    @order_ditails = Order_ditail.new(order_ditail_params)
-    order.save
+    params[:order][:payment_method] = params[:order][:payment_method].to_i
+    @order = Order.new(order_params)
+    @order.customer_id = current_customer.id
+    @order.save
+    @cart_items = current_customer.cart_items
+    @cart_items.each do |cart_item|
+    @order_ditail = OrderDitail.new
+    @order_ditail.order_id = @order.id
+    @order_ditail.item_id = cart_item.item.id
+    @order_ditail.price = cart_item.item.price
+    @order_ditail.amount = cart_item.amount
     @order_ditail.save
-    redirect_to confirm_orders_path
+    end
+    redirect_to compleate_orders_path
   end
 
   def confirm
-    @order_ditails = @order.order_ditails.page(params[:page]).reverse_order
-    #@order_ditail = OrderDitail.find(params[:id])
+    @order = Order.new
+    @order.payment_method = params[:order][:payment_method].to_i
+    @order.postal_code = current_customer.postal_code
+    @order.address = current_customer.address
+    @order.name = current_customer.first_name + current_customer.last_name
   end
 
   private
   def order_params
     params.require(:order).permit(:payment_method, :address, :postal_code, :name)
-  end
-
-  def order_ditail_params
-    params.require(:order_ditail).permit(:cart_item_id, :amount)
   end
 end

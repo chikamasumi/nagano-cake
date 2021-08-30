@@ -1,0 +1,28 @@
+<h4>注文確認画面</h4>
+  <table>
+    <thead>
+      <th width="80" heigth="24">商品名</th>
+      <th width="300" heigth="24">単価（税込）</th>
+      <th width="200" heigth="24">数量</th>
+      <th width="300" heigth="24">小計</th>
+    </thead>
+    <tbody>
+      <% current_customer.cart_items.each do |cart_item| %>
+      <tr>
+        <td><%= cart_item.item.name %></td>
+        <td><%= cart_item.item.price %></td>
+        <td><%= cart_item.amount %></td>
+        <td><%= cart_item.subtotal %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <h6>支払方法</h6>
+　<p><%= @order.payment_method_i18n %></p>
+　<h6>お届け先</h6>
+　<p><%= @order.address %></p>
+　<%= form_for @order, method: :post, url: orders_path do |f| %>
+	  <%= f.hidden_field :payment_method %>
+	  <%= f.hidden_field :address %>
+	  <%= f.submit '注文を確定する' %>
+  <% end %>
