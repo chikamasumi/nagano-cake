@@ -1,0 +1,30 @@
+<h4>注文履歴詳細</h4>
+<h5>注文情報</h5>
+<div>
+  <p>注文日</p>
+  <p><%= @order_ditail.created_at %></p>
+</div>
+<div>
+  <p>配送先</p>
+  <p><%= @order_ditail.order.address %></p>
+</div>
+<div>
+  <p>支払い方法</p>
+  <p><%= @order_ditail.order.payment_method_i18n %></p>
+</div>
+<h5>注文内容</h5>
+  <table>
+  <thead>
+    <th width="300" heigth="24">商品</th>
+    <th width="100" heigth="24">単価（税込）</th>
+    <th width="100" heigth="24">個数</th>
+    <th width="100" heigth="24">小計</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= @order_ditail.item.name %></td>
+      <td><%= @order_ditail.price %></td>
+      <td><%= @order_ditail.amount %></td>
+      <td></td>
+    </tr>
+  </tbody>

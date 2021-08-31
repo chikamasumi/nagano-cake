@@ -1,0 +1,20 @@
+<h4>注文履歴一覧</h4>
+<table>
+  <thead>
+    <th width="300" heigth="24">注文日</th>
+    <th width="300" heigth="24">配送先</th>
+    <th width="200" heigth="24">注文商品</th>
+    <th width="100" heigth="24">支払金額</th>
+    <th width="100" heigth="24">注文詳細</th>
+  </thead>
+  <tbody>
+  <% @order_ditails.each do |order_ditail| %>
+    <tr>
+      <td><%= order_ditail.created_at %></td>
+      <td><%= order_ditail.order.address %></td>
+      <td><%= order_ditail.item.name %></td>
+      <td></td>
+      <td><%= link_to '表示する', order_path(order_ditail.id), class:'btn btn-primary' %></td>
+    </tr>
+  <% end %>
+  </tbody>
