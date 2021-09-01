@@ -1,5 +1,5 @@
 <h4>注文履歴一覧</h4>
-<table>
+<table class="table table-striped">
   <thead>
     <th width="300" heigth="24">注文日</th>
     <th width="300" heigth="24">配送先</th>
@@ -8,13 +8,17 @@
     <th width="100" heigth="24">注文詳細</th>
   </thead>
   <tbody>
-  <% @order_ditails.each do |order_ditail| %>
+  <% @order.each do |order| %>
     <tr>
-      <td><%= order_ditail.created_at %></td>
-      <td><%= order_ditail.order.address %></td>
-      <td><%= order_ditail.item.name %></td>
-      <td></td>
-      <td><%= link_to '表示する', order_path(order_ditail.id), class:'btn btn-primary' %></td>
+      <td><%= order.created_at.strftime('%Y/%m/%d') %></td>
+      <td><%= order.address %></td>
+      <td>
+        <% order.order_ditails.each do |order_ditail| %>
+        　<p><%= order_ditail.item.name %></p>
+        <% end %>
+      </td>
+      <td><%= order.payment %></td>
+      <td><%= link_to '表示する', order_path(order.id), class:'btn btn-primary' %></td>
     </tr>
   <% end %>
   </tbody>

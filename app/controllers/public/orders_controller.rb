@@ -30,18 +30,25 @@ class Public::OrdersController < ApplicationController
     @order.postal_code = current_customer.postal_code
     @order.address = current_customer.address
     @order.name = current_customer.first_name + current_customer.last_name
+    @shipping = 800
+    @total_price = 0
+    @payment = 0
   end
 
   def index
-    @order_ditails = OrderDitail.all
+    @order = Order.all
   end
 
   def show
-    @order_ditail = OrderDitail.find(params[:id])
+    # @order_ditail = OrderDitail.find(params[:id])
+    @order_ditail = OrderDitail.find_by(order_id: params[:id])
+    # @order_ditails = OrderDitail.all
+    # @order_ditails = Order.find(@order_ditail.order_id).order_ditails.all
+    @order_ditails = Order.find(params[:id]).order_ditails.all
   end
 
   private
   def order_params
-    params.require(:order).permit(:payment_method, :address, :postal_code, :name)
+    params.require(:order).permit(:payment_method, :address, :postal_code, :name, :payment)
   end
 end

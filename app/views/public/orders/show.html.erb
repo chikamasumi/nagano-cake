@@ -21,10 +21,13 @@
     <th width="100" heigth="24">小計</th>
   </thead>
   <tbody>
-    <tr>
-      <td><%= @order_ditail.item.name %></td>
-      <td><%= @order_ditail.price %></td>
-      <td><%= @order_ditail.amount %></td>
-      <td></td>
-    </tr>
+    <%# @order_ditails.each do |order_ditail| %>
+    <% @order_ditails.each do |a| %>
+      <tr>
+        <td><%= a.item.name %></td>
+        <td><%= a.price %></td>
+        <td><%= a.amount %></td>
+        <td><%#= order_ditail.subtotal %></td>
+      </tr>
+    <% end %>
   </tbody>
