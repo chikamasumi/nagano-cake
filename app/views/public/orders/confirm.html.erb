@@ -1,5 +1,11 @@
 <p id="notice"></p>
 <h4>注文確認画面</h4>
+<% if @order.errors.any? %>
+  <%= @order.errors.count %>件のエラーが発生しました
+  <% @order.errors.full_messages.each do |message| %>
+    <%= message %>
+  <% end %>
+<% end %>
   <table class="table table-striped">
     <thead>
       <th width="300" heigth="24">商品名</th>

@@ -6,7 +6,7 @@ class Public::OrdersController < ApplicationController
       redirect_to cart_items_path
     end
     @customer = current_customer
-    @address = Address.all
+    @address = current_customer.addresses
   end
 
   def create
@@ -29,6 +29,11 @@ class Public::OrdersController < ApplicationController
 
   def confirm
     @order = Order.new
+    if params[:order][:payment_method].nil?
+      @customer = current_customer
+      @address = current_customer.addresses
+      render :new
+    end
     @order.payment_method = params[:order][:payment_method].to_i
     @order.postal_code = current_customer.postal_code
     @order.address = current_customer.address
@@ -43,10 +48,7 @@ class Public::OrdersController < ApplicationController
   end
 
   def show
-    # @order_ditail = OrderDitail.find(params[:id])
     @order_ditail = OrderDitail.find_by(order_id: params[:id])
-    # @order_ditails = OrderDitail.all
-    # @order_ditails = Order.find(@order_ditail.order_id).order_ditails.all
     @order_ditails = Order.find(params[:id]).order_ditails.all
     @shipping = 800
     @total_price = 0

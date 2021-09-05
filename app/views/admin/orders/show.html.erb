@@ -10,6 +10,44 @@
         <p><%= @order.address %></p>
         <h6>支払い方法</h6>
         <p><%= @order.payment_method_i18n %></p>
+        <table>
+          <thead>
+            <th width="300" heigth="24">商品</th>
+            <th width="100" heigth="24">単価（税込）</th>
+            <th width="100" heigth="24">数量</th>
+            <th width="100" heigth="24">小計</th>
+          </thead>
+        <tbody>
+        <% @order_ditails.each do |a| %>
+        <% @subtotal = 0 %>
+          <tr>
+            <td><%= a.item.name %></td>
+            <td><%= a.item.with_tax_price %></td>
+            <td><%= a.amount %></td>
+            <td>
+              <% @subtotal += ((a.item.price * 1.1).floor) * (a.amount) %>
+              <%= @subtotal %>
+            </td>
+          </tr>
+        <% @total_price += @subtotal %>
+        <% end %>
+        </tbody>
+        <h5>請求情報</h5>
+        <% @payment += @shipping + @total_price %>
+        <table>
+          <thead>
+            <th>商品合計</th>
+            <th><%= @total_price %>円</th>
+          </thead>
+          <thead>
+            <th>配送料</th>
+            <th><%= @shipping %>円</th>
+          </thead>
+          <thead>
+            <th>ご請求額</th>
+            <th><%= @payment %></th>
+          </thead>
+        </table>
       </div>
     </div>
   </div>
