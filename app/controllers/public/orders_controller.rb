@@ -1,7 +1,10 @@
 class Public::OrdersController < ApplicationController
   before_action :authenticate_customer!
   def new
-    @order = Order.new
+   @order = Order.new
+    if current_customer.cart_items.empty?
+      redirect_to cart_items_path
+    end
     @customer = current_customer
     @address = Address.all
   end
@@ -29,14 +32,14 @@ class Public::OrdersController < ApplicationController
     @order.payment_method = params[:order][:payment_method].to_i
     @order.postal_code = current_customer.postal_code
     @order.address = current_customer.address
-    @order.name = current_customer.first_name + current_customer.last_name
+    @order.name = current_customer.last_name + current_customer.first_name
     @shipping = 800
     @total_price = 0
     @payment = 0
   end
 
   def index
-    @order = Order.all
+    @order = current_customer.orders
   end
 
   def show
@@ -45,6 +48,9 @@ class Public::OrdersController < ApplicationController
     # @order_ditails = OrderDitail.all
     # @order_ditails = Order.find(@order_ditail.order_id).order_ditails.all
     @order_ditails = Order.find(params[:id]).order_ditails.all
+    @shipping = 800
+    @total_price = 0
+    @payment = 0
   end
 
   private

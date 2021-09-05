@@ -1,3 +1,4 @@
+<p id="notice"></p>
 <h4>注文履歴一覧</h4>
 <table class="table table-striped">
   <thead>
@@ -11,7 +12,7 @@
   <% @order.each do |order| %>
     <tr>
       <td><%= order.created_at.strftime('%Y/%m/%d') %></td>
-      <td><%= order.address %></td>
+      <td>〒<%= order.postal_code %><%= order.address %><%= order.name %></td>
       <td>
         <% order.order_ditails.each do |order_ditail| %>
         　<p><%= order_ditail.item.name %></p>

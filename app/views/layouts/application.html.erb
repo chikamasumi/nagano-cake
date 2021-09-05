@@ -11,36 +11,52 @@
 
   <body>
     <header>
-      <nav class="navbar navbar-expand-lg">
+      <nav class="navbar navbar-expand-lg border-bottom border-dark">
         <div class="container">
           <span><%= link_to "LOGO", root_path, class:"navbar-brand border border-dark text-dark" %></span>
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ml-auto">
             <% if customer_signed_in? %>
             <li>
-              <%= link_to 'マイページ', customer_path(current_customer.id), class:"fas fa-solid border rounded-lg border-secondary text-dark" %>
+              <%= link_to 'マイページ', customer_path(current_customer.id), class:"btn btn-light border rounded-lg border-secondary text-dark" %>
             </li>
             <li>
-              <%= link_to '商品一覧', items_path, class:"fas fa-solid border rounded-lg border-secondary text-dark" %>
+              <%= link_to '商品一覧', items_path, class:"btn btn-light border rounded-lg border-secondary text-dark" %>
             </li>
             <li>
-              <%= link_to 'カート', cart_items_path, class:"fas fa-solid border rounded-lg border-secondary text-dark" %>
+              <%= link_to 'カート', cart_items_path, class:"btn btn-light border rounded-lg border-secondary text-dark" %>
             </li>
             <li>
-              <%= link_to "ログアウト", destroy_customer_session_path, method: :delete, class:"fas fa-solid border rounded-lg border-secondary text-dark" %>
+              <%= link_to "ログアウト", destroy_customer_session_path, method: :delete, class:"btn btn-light border rounded-lg border-secondary text-dark" %>
+            </li>
+            <% elsif admin_signed_in? then %>
+            <li>
+              <%= link_to '商品一覧', admin_items_path, class:"btn btn-light border rounded-lg border-secondary text-dark" %>
+            </li>
+            <li>
+              <%= link_to '会員一覧', admin_customers_path, class:"btn btn-light border rounded-lg border-secondary text-dark" %>
+            </li>
+            <li>
+              <%= link_to '注文履歴一覧', admin_orders_path, class:"btn btn-light border rounded-lg border-secondary text-dark" %>
+            </li>
+            <li>
+              <%= link_to 'ジャンル一覧', admin_genres_path, class:"btn btn-light border rounded-lg border-secondary text-dark" %>
+            </li>
+            <li>
+              <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class:"btn btn-light border rounded-lg border-secondary text-dark" %>
             </li>
             <% else %>
             <li>
-              <%= link_to 'About', about_path, class:"fas fa-solid border rounded-lg border-secondary text-dark" %>
+              <%= link_to 'About', about_path, class:"btn btn-light border rounded-lg border-secondary text-dark" %>
             </li>
             <li>
-              <%= link_to '商品一覧', items_path, class:"fas fa-solid border rounded-lg border-secondary text-dark" %>
+              <%= link_to '商品一覧', items_path, class:"btn btn-light border rounded-lg border-secondary text-dark" %>
             </li>
             <li>
-              <%= link_to "新規登録", new_customer_registration_path, class:"fas fa-solid border rounded-lg border-secondary text-dark" %>
+              <%= link_to "新規登録", new_customer_registration_path, class:"btn btn-light border rounded-lg border-secondary text-dark" %>
             </li>
             <li>
-              <%= link_to "ログイン", new_customer_session_path, class:"fas fa-solid border rounded-lg border-secondary text-dark" %>
+              <%= link_to "ログイン", new_customer_session_path, class:"btn btn-light border rounded-lg border-secondary text-dark" %>
             </li>
             <% end %>
             </ul>
@@ -50,5 +66,6 @@
     </header>
 
     <%= yield %>
+    <footer class="border-top border-dark">
   </body>
 </html>

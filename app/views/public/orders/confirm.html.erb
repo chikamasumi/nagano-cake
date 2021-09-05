@@ -1,3 +1,4 @@
+<p id="notice"></p>
 <h4>注文確認画面</h4>
   <table class="table table-striped">
     <thead>
@@ -43,7 +44,7 @@
 　    </tr>
 　    <tr>
 　      <th>お届け先</th>
-　      <th><%= @order.address %></th>
+　      <th>〒<%= @order.postal_code %><%= @order.address %><%= @order.name %></th>
 　     </tr>
 　   </tbody>
 　 </table>

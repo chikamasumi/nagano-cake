@@ -20,7 +20,7 @@ class Public::AddressesController < ApplicationController
   def update
     @address = Address.find(params[:id])
     @address.update(address_params)
-    redirect_to address_path(address.id)
+    redirect_to addresses_path
   end
 
   def destroy

@@ -1,8 +1,9 @@
+<p id="notice"></p>
 <h4>注文履歴詳細</h4>
 <h5>注文情報</h5>
 <div>
   <p>注文日</p>
-  <p><%= @order_ditail.created_at %></p>
+  <p><%= @order_ditail.created_at.strftime('%Y/%m/%d') %></p>
 </div>
 <div>
   <p>配送先</p>
@@ -12,6 +13,7 @@
   <p>支払い方法</p>
   <p><%= @order_ditail.order.payment_method_i18n %></p>
 </div>
+
 <h5>注文内容</h5>
   <table>
   <thead>
@@ -21,13 +23,33 @@
     <th width="100" heigth="24">小計</th>
   </thead>
   <tbody>
-    <%# @order_ditails.each do |order_ditail| %>
     <% @order_ditails.each do |a| %>
+    <% @subtotal = 0 %>
       <tr>
         <td><%= a.item.name %></td>
-        <td><%= a.price %></td>
+        <td><%= a.item.with_tax_price %></td>
         <td><%= a.amount %></td>
-        <td><%#= order_ditail.subtotal %></td>
+        <td>
+          <% @subtotal += ((a.item.price * 1.1).floor) * (a.amount) %>
+          <%= @subtotal %>
+        </td>
       </tr>
+      <% @total_price += @subtotal %>
     <% end %>
   </tbody>
+  <h5>請求情報</h5>
+<% @payment += @shipping + @total_price %>
+  <table>
+    <thead>
+      <th>商品合計</th>
+      <th><%= @total_price %>円</th>
+    </thead>
+    <thead>
+      <th>配送料</th>
+      <th><%= @shipping %>円</th>
+    </thead>
+    <thead>
+      <th>ご請求額</th>
+      <th><%= @payment %></th>
+    </thead>
+  </table>

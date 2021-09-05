@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   root to: 'public/homes#top'
   scope module: :public do
-    get "/about" => "public/homes#about" , as: "about"
+    get "/about" => "homes#about" , as: "about"
     resources :items, only: [:index, :show, :create]
     resources :cart_items, only: [:index, :update, :destroy, :create] do
       collection do
